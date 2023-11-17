@@ -1,0 +1,4 @@
+2023-11-17 22:41:49,868 Starting the client application
+2023-11-17 22:41:51,200 Starting new HTTP connection (1): 127.0.0.1:5000
+2023-11-17 22:41:51,202 http://127.0.0.1:5000 "POST /register HTTP/1.1" 200 78
+2023-11-17 22:41:51,203 Key-value pair created successfully.
