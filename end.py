@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import logging
 import csv
+import threading
 
 app = Flask(__name__)
 
@@ -12,6 +13,7 @@ def Entry():
 
 @app.post("/del")
 def Del():
+    # lock.acquire()
     status = "False"
     data = []
     # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
@@ -29,6 +31,8 @@ def Del():
         write = csv.writer(w)
         write.writerows(data)
 
+    # lock.release()
+
     return (
         jsonify(
             {
@@ -44,6 +48,7 @@ def Del():
 
 @app.post("/add")
 def Add():
+    # lock.acquire()  
     status = "False"
     data = []
     # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
@@ -67,6 +72,8 @@ def Add():
         write = csv.writer(w)
         write.writerows(data)
         w.close()
+
+    # lock.release()
 
     return (
         jsonify(
@@ -93,4 +100,7 @@ if __name__ == "__main__":
     logger.debug("Starting the end server")
     f = open("database.csv", "w", newline="")
     f.close()
+
+    # Locking for serialising access to the database
+    # lock = threading.Lock()
     app.run(debug=True)

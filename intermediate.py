@@ -3,6 +3,7 @@ import logging
 import mmh3
 import sys
 import requests
+from time import sleep
 
 # Create the shell script files to run all the files in the correct order
 
@@ -17,7 +18,7 @@ def Hash64(key):
     hashes = []
     data = key
     for i in range(0, N):
-        data = mmh3.hash64(data.encode("utf-8"))[0] % ceiling
+        data = mmh3.hash64(str(data).encode("utf-8"))[0] % ceiling
         hashes.append(data)
     return hashes
 
@@ -63,6 +64,8 @@ def Delete(key):
     hashes = Hash64(key)
     servers = GetServers(hashes)
     for server in servers:
+        # Give time between API calls
+        sleep(1)
         # Make POST request to server to Delete value associated with key
         response = requests.post(
             "http://" + serverList[server] + "/del", json={"key": key}
@@ -79,7 +82,7 @@ def Delete(key):
 
 @app.post("/create")
 def Create():
-    if serverList.empty():
+    if len(serverList) == 0:
         return (
             jsonify({"status": "No servers registered."}),
             500,
@@ -87,7 +90,10 @@ def Create():
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
     for server in servers:
+        # Give time between API calls
+        sleep(1)
         # Make POST request to server to Create key-value pair
+        print("Server: " + serverList[server])
         response = requests.post(
             "http://" + serverList[server] + "/add",
             json={"key": request.json["key"], "value": request.json["value"]},
@@ -95,6 +101,7 @@ def Create():
         if response.status_code == 200:
             print("Key-value pair created successfully.")
             logger.debug("Key-value pair created successfully.")
+        print("Server: " + str(server))
 
     return (
         jsonify({"key": request.json["key"], "value": request.json["value"]}),
@@ -105,7 +112,7 @@ def Create():
 @app.post("/register")
 def RegisterServer():
     # Register server to the list of servers
-    serverList.append(request.json["IP"] + ":" + request.json["port"])
+    serverList.append(request.remote_addr + ":" + request.json["port"])
     AddServerToRing(serverList[-1])
     return (
         jsonify({"status": "Successfully registered server.", "Added": serverList[-1]}),
@@ -203,7 +210,7 @@ if __name__ == "__main__":
     logger.debug("Starting the intermediate server")
 
     virtualNodeCount = 5
-    N = 10
+    N = 1
     serverList = []
     serverCount = 0
     ceiling = 2**64
@@ -215,4 +222,4 @@ if __name__ == "__main__":
     elif len(sys.argv) > 2:
         print("Invalid number of arguments. Please check the shell script.")
 
-    app.run(debug=True)
+    app.run(debug=True, port = 6000)

@@ -1,4 +1,4 @@
-2023-11-17 22:41:49,868 Starting the client application
-2023-11-17 22:41:51,200 Starting new HTTP connection (1): 127.0.0.1:5000
-2023-11-17 22:41:51,202 http://127.0.0.1:5000 "POST /register HTTP/1.1" 200 78
-2023-11-17 22:41:51,203 Key-value pair created successfully.
+2023-11-18 14:46:36,649 Starting the client application
+2023-11-18 14:46:38,883 Starting new HTTP connection (1): 127.0.0.1:5000
+2023-11-18 14:46:39,896 http://127.0.0.1:5000 "POST /create HTTP/1.1" 500 55371
+2023-11-18 14:46:39,897 Failed to create key-value pair.

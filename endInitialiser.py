@@ -31,27 +31,28 @@ def AddContainers(N):
     logger.debug("Removed all containers")
     docker_client = docker.from_env()
     logger.debug("Fetched docker env information...")
-    for i in range(1, N + 1):
+    for i in range(1):
         docker_client.containers.run(
-            "endServer",
+            "ringserver",
             name="endServer" + str(i),
             detach=True,
-            ports={"5000/tcp": str(5000 + i)},
+            ports={"5000/tcp": str(5000)},
         )
 
         logger.debug("Started container " + str(i))
 
         response = requests.post(
             "http://" + intermediateIP + "/register",
-            json={"IP": ip, "port": str(5000 + i)},
+            json={"port": str(5000 + i)},
         )
 
         # Check the response status code
         if response.status_code == 200:
             print("Registered" + str(i) + " successfully!")
+            print(response.json())
         else:
             print(response)
-            print(response.json)
+            print(response.json())
             print("Request failed")
 
 
@@ -65,8 +66,8 @@ if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
 
     ip = GetIP()
-    intermediateIP = "127.0.0.1:5000"
-    containerCount = 3
+    intermediateIP = "127.0.0.1:6000"
+    containerCount = 1
 
     logger.debug(
         "Starting registration process for the " + str(containerCount) + " containers"
