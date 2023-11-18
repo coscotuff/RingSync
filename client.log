@@ -1,21 +1,18 @@
-2023-11-18 22:06:23,846 Starting the client application
-2023-11-18 22:06:29,871 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:06:29,882 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-11-18 22:06:29,883 Key-value pair added successfully.
-2023-11-18 22:06:36,789 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:06:36,793 http://127.0.0.1:6000 "POST /delete HTTP/1.1" 200 37
-2023-11-18 22:06:36,793 Key-value pair updated successfully.
-2023-11-18 22:06:36,793 Key: 1
-2023-11-18 22:06:42,334 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:06:42,339 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-11-18 22:06:42,339 Key-value pair added successfully.
-2023-11-18 22:06:50,396 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:06:50,401 http://127.0.0.1:6000 "POST /delete HTTP/1.1" 200 38
-2023-11-18 22:06:50,401 Key not found, nothing was deleted.
-2023-11-18 22:06:50,401 Key: 2
-2023-11-18 22:07:03,051 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:07:03,055 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-11-18 22:07:03,055 Key-value pair added successfully.
-2023-11-18 22:07:28,442 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 22:07:28,447 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 53
-2023-11-18 22:07:28,447 Key-value pair updated successfully.
+2023-11-18 23:10:54,019 Starting the client application
+2023-11-18 23:10:57,231 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 23:10:57,245 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 41
+2023-11-18 23:10:57,246 Key-value pair added successfully.
+2023-11-18 23:11:22,011 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 23:11:22,017 http://127.0.0.1:6000 "POST /delete HTTP/1.1" 200 28
+2023-11-18 23:11:22,017 Key-value pair updated successfully.
+2023-11-18 23:11:22,017 Key: 1
+2023-11-18 23:11:33,286 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 23:11:33,293 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 41
+2023-11-18 23:11:33,294 Key-value pair added successfully.
+2023-11-18 23:12:06,466 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 23:12:06,472 http://127.0.0.1:6000 "POST /delete HTTP/1.1" 200 29
+2023-11-18 23:12:06,472 Key not found, nothing was deleted.
+2023-11-18 23:12:06,472 Key: 2
+2023-11-18 23:12:15,068 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 23:12:15,076 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 40
+2023-11-18 23:12:15,076 Key-value pair updated successfully.

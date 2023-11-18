@@ -8,7 +8,7 @@ def CreateKeyValue(key, value, IP):
     response = requests.post(
         "http://" + IP + ":6000/create", json={"key": key, "value": value}
     )
-    print(response)
+    # print(response)
     if response.status_code == 200:
         if response.json()["update"] == "True":
             print("A value for the key already exists in the database...")
@@ -47,11 +47,6 @@ def main():
     # The IP address of the server is taken in as a command line argument
     serverIP = "127.0.0.1"
 
-    if len(sys.argv) == 2:
-        serverIP = sys.argv[1]
-    elif len(sys.argv) > 2:
-        print("Invalid number of arguments. Please check the shell script.")
-
     while True:
         print("Menu:")
         print("1. Create key-value pair")
@@ -68,14 +63,6 @@ def main():
             DeleteKey(key, serverIP)
         elif choice == "3":
             break
-        # elif choice == "4":
-        #     response = requests.post("http://" + serverIP + ":5000/register", json = {"IP": "127.lols", "port": "5069"})
-        #     print(response)
-        #     if response.status_code == 200:
-        #         print("Retrieved IP: ")
-        #         print(response.json())
-        #         logger.debug("Key-value pair created successfully.")
-
         else:
             print("Invalid choice. Please try again.")
 

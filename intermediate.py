@@ -101,7 +101,7 @@ def Create():
     logger.debug("Servers retrieved.")
     for server in servers:
         # Make an gRPC call to the end server
-        print("Server: " + serverList[server])
+        # print("Server: " + serverList[server])
         with grpc.insecure_channel(serverList[server]) as channel:
             stub = ring_pb2_grpc.AlertStub(channel)
             response = stub.Add(
@@ -130,7 +130,7 @@ def Create():
 @app.post("/register")
 def RegisterServer():
     # Register server to the list of servers
-    serverList.append(request.remote_addr + ":" + request.json["port"])
+    serverList.append(request.json["ip"] + ":" + request.json["port"])
     AddServerToRing(serverList[-1])
     return (
         jsonify({"status": "Successfully registered server.", "Added": serverList[-1]}),
@@ -227,7 +227,10 @@ if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
     logger.debug("Starting the intermediate server")
 
+    # Configure the number of virtual nodes
     virtualNodeCount = 5
+
+    # Configure the number of times data is to be replicated
     N = 1
     serverList = []
     serverCount = 0
@@ -235,9 +238,4 @@ if __name__ == "__main__":
     stepSize = int(ceiling / virtualNodeCount)
     nodes = LinkedList()
 
-    if len(sys.argv) == 2:
-        N = sys.argv[1]
-    elif len(sys.argv) > 2:
-        print("Invalid number of arguments. Please check the shell script.")
-
-    app.run(debug=False, port=6000)
+    app.run(debug=True, port=6000)

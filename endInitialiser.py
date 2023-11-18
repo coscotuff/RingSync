@@ -2,6 +2,7 @@ import requests
 import docker
 import socket
 import logging
+import sys
 
 
 def GetIP():
@@ -31,19 +32,19 @@ def AddContainers(N):
     logger.debug("Removed all containers")
     docker_client = docker.from_env()
     logger.debug("Fetched docker env information...")
-    for i in range(1):
+    for i in range(1, N + 1):
         docker_client.containers.run(
             "ringserver",
             name="endServer" + str(i),
             detach=True,
-            ports={"5000/tcp": str(5000)},
+            ports={"5000/tcp": str(5000 + i)},
         )
 
         logger.debug("Started container " + str(i))
 
         response = requests.post(
             "http://" + intermediateIP + "/register",
-            json={"port": str(5000 + i)},
+            json={"ip": ip, "port": str(5000 + i)},
         )
 
         # Check the response status code
@@ -65,9 +66,12 @@ if __name__ == "__main__":
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
-    ip = GetIP()
+    # Fetch the IP address of the machine where the containers will be initialised
+    ip = str(GetIP())
+    # Set the IP address and port number of the intermediate server here
     intermediateIP = "127.0.0.1:6000"
-    containerCount = 1
+    # Set number of containers here
+    containerCount = 5
 
     logger.debug(
         "Starting registration process for the " + str(containerCount) + " containers"
