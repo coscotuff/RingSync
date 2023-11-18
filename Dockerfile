@@ -4,11 +4,12 @@ FROM python:3.8
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the server code to the working directory
-COPY end.py /app
+# Copy the server code and protobuffer files to the working directory
+COPY . /app
 
-# Install required dependencies
-RUN pip install flask
+# Install required gRPC dependencies
+RUN pip install grpcio
+RUN pip install grpcio-tools
 
 # Expose the port on which the REST API server runs
 EXPOSE 5000

@@ -1,91 +1,79 @@
-from flask import Flask, request, jsonify
+from concurrent import futures
 import logging
 import csv
+import grpc
 import threading
-
-app = Flask(__name__)
-
-
-@app.route("/")
-def Entry():
-    return "Hello, World!"
+import ring_pb2
+import ring_pb2_grpc
 
 
-@app.post("/del")
-def Del():
-    # lock.acquire()
-    status = "False"
-    data = []
-    # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
-    with open("database.csv", "r", newline="") as r:
-        read = csv.reader(r)
-        data = list(read)
+class Server(ring_pb2_grpc.AlertServicer):
+    def __init__(self):
+        self.data = True
 
-    for row in data:
-        if row[0] == request.json["key"]:
-            data.remove(row)
-            status = "True"
-            break
+    def Delete(self, request, context):
+        lock.acquire()
+        status = "False"
+        data = []
+        # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
+        with open("database.csv", "r", newline="") as r:
+            read = csv.reader(r)
+            data = list(read)
 
-    with open("database.csv", "w", newline="") as w:
-        write = csv.writer(w)
-        write.writerows(data)
+        for row in data:
+            if row[0] == request.key:
+                data.remove(row)
+                status = "True"
+                break
 
-    # lock.release()
+        with open("database.csv", "w", newline="") as w:
+            write = csv.writer(w)
+            write.writerows(data)
 
-    return (
-        jsonify(
-            {
-                "Operation": "Delete",
-                "Updated": status,
-                "key": request.json["key"],
-                "value": request.json["value"],
-            }
-        ),
-        200,
-    )
+        lock.release()
+        return ring_pb2.returnValue(
+            updated=status, key=request.key
+        )
+
+    def Add(self, request, context):
+        lock.acquire()
+        status = "False"
+        data = []
+        # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
+        with open("database.csv", "r", newline="") as r:
+            read = csv.reader(r)
+            data = list(read)
+            r.close()
+
+        for row in data:
+            print(row)
+            if row[0] == request.key:
+                row[1] = request.value
+                status = "True"
+                break
+
+        if status == "False":
+            data.append([request.key, request.value])
+            print("Data after update/append: ", data)
+
+        with open("database.csv", "w", newline="") as w:
+            write = csv.writer(w)
+            write.writerows(data)
+            w.close()
+
+        lock.release()
+        return ring_pb2.returnValue(
+            updated=status, key=request.key, value=request.value
+        )
 
 
-@app.post("/add")
-def Add():
-    # lock.acquire()  
-    status = "False"
-    data = []
-    # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
-    with open("database.csv", "r", newline="") as r:
-        read = csv.reader(r)
-        data = list(read)
-        r.close()
-
-    for row in data:
-        print(row)
-        if row[0] == request.json["key"]:
-            row[1] = request.json["value"]
-            status = "True"
-            break
-
-    if status == "False":
-        data.append([request.json["key"], request.json["value"]])
-        print("Data after update/append: ", data)
-
-    with open("database.csv", "w", newline="") as w:
-        write = csv.writer(w)
-        write.writerows(data)
-        w.close()
-
-    # lock.release()
-
-    return (
-        jsonify(
-            {
-                "Operation": "Add",
-                "Updated": status,
-                "key": request.json["key"],
-                "value": request.json["value"],
-            }
-        ),
-        200,
-    )
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    ring_pb2_grpc.add_AlertServicer_to_server(Server(), server)
+    server.add_insecure_port("[::]:5000")
+    server.start()
+    print("Server started listening on port 5000")
+    server.wait_for_termination()
 
 
 # main:
@@ -102,5 +90,7 @@ if __name__ == "__main__":
     f.close()
 
     # Locking for serialising access to the database
-    # lock = threading.Lock()
-    app.run(debug=True)
+    lock = threading.Lock()
+
+    # Start the server
+    serve()

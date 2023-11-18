@@ -4,6 +4,9 @@ import mmh3
 import sys
 import requests
 from time import sleep
+import grpc
+import ring_pb2
+import ring_pb2_grpc
 
 # Create the shell script files to run all the files in the correct order
 
@@ -44,38 +47,43 @@ def AddServerToRing(server):
         h64 = (h64 + stepSize) % ceiling
 
     nodes.MergeLists(tempChain.head)
-    nodes.PrintLL()
-    print("Server added to ring successfully.\n")
+    # nodes.PrintLL()
+    # print("Server added to ring successfully.\n")
     serverCount += 1
 
 
-@app.route("/")
+@app.post("/")
 def Entry():
     return "Hello, World!"
 
 
-@app.route("/delete")
-def Delete(key):
-    if serverList.empty():
+@app.post("/delete")
+def Delete():
+    if len(serverList) == 0:
         return (
-            jsonify({"status": "No servers registered."}),
+            jsonify({"update": "No servers registered.", "key": "No"}),
             500,
         )
-    hashes = Hash64(key)
+    hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
     for server in servers:
-        # Give time between API calls
-        sleep(1)
-        # Make POST request to server to Delete value associated with key
-        response = requests.post(
-            "http://" + serverList[server] + "/del", json={"key": key}
-        )
-        if response.status_code == 200:
-            print("Key deleted successfully.")
-            logger.debug("Key deleted successfully.")
+        # Make an gRPC call to the end server
+        # print("Server: " + serverList[server])
+        with grpc.insecure_channel(serverList[server]) as channel:
+            stub = ring_pb2_grpc.AlertStub(channel)
+            response = stub.Delete(ring_pb2.keyValue(key=request.json["key"]))
+
+            logger.debug(
+                "Value associated with key deleted successfully: " + response.key
+            )
 
     return (
-        jsonify({"key": request.json["key"]}),
+        jsonify(
+            {
+                "update": response.updated,
+                "key": response.key,
+            }
+        ),
         200,
     )
 
@@ -88,23 +96,33 @@ def Create():
             500,
         )
     hashes = Hash64(request.json["key"])
+    logger.debug("Hashing done.")
     servers = GetServers(hashes)
+    logger.debug("Servers retrieved.")
     for server in servers:
-        # Give time between API calls
-        sleep(1)
-        # Make POST request to server to Create key-value pair
+        # Make an gRPC call to the end server
         print("Server: " + serverList[server])
-        response = requests.post(
-            "http://" + serverList[server] + "/add",
-            json={"key": request.json["key"], "value": request.json["value"]},
-        )
-        if response.status_code == 200:
-            print("Key-value pair created successfully.")
-            logger.debug("Key-value pair created successfully.")
-        print("Server: " + str(server))
+        with grpc.insecure_channel(serverList[server]) as channel:
+            stub = ring_pb2_grpc.AlertStub(channel)
+            response = stub.Add(
+                ring_pb2.keyValue(key=request.json["key"], value=request.json["value"])
+            )
+
+            logger.debug(
+                "Key-value pair added successfully: "
+                + response.key
+                + " "
+                + response.value
+            )
 
     return (
-        jsonify({"key": request.json["key"], "value": request.json["value"]}),
+        jsonify(
+            {
+                "update": response.updated,
+                "key": response.key,
+                "value": response.value,
+            }
+        ),
         200,
     )
 
@@ -222,4 +240,4 @@ if __name__ == "__main__":
     elif len(sys.argv) > 2:
         print("Invalid number of arguments. Please check the shell script.")
 
-    app.run(debug=True, port = 6000)
+    app.run(debug=False, port=6000)

@@ -2,32 +2,44 @@ import requests
 import logging
 import sys
 
-# Need to later on add functionality to check if: The key does not exist, The key already exists and therefore the value has now been updated.
-
 
 def CreateKeyValue(key, value, IP):
     # Make a POST request to the server to create a key-value pair
     response = requests.post(
-        "http://" + IP + ":5000/create", json={"key": key, "value": value}
+        "http://" + IP + ":6000/create", json={"key": key, "value": value}
     )
     print(response)
     if response.status_code == 200:
-        print("Key-value pair created successfully.")
-        print(response.json())
-        logger.debug("Key-value pair created successfully.")
+        if response.json()["update"] == "True":
+            print("A value for the key already exists in the database...")
+            print("Updated the value to newly provided values... ")
+            logger.debug("Key-value pair updated successfully.")
+        else:
+            print("Key-value pair added successfully...")
+            logger.debug("Key-value pair added successfully.")
+        print("Key: " + response.json()["key"])
+        print("Value: " + response.json()["value"] + "\n")
     else:
-        print("Failed to create key-value pair.")
+        print("Failed to create key-value pair. \n")
         logger.debug("Failed to create key-value pair.")
 
 
 def DeleteKey(key, IP):
     # Make a DELETE request to the server to delete a key
-    response = requests.post("http://" + IP + ":5000/delete", json={"key": key})
+    response = requests.post("http://" + IP + ":6000/delete", json={"key": key})
     if response.status_code == 200:
-        print("Key deleted successfully.")
-        logger.debug("Key deleted successfully.")
+        if response.json()["update"] == "True":
+            print("Entry for key found...")
+            print("Deleted!")
+            logger.debug("Key-value pair updated successfully.")
+        else:
+            print("Key not found, nothing was deleted.")
+            logger.debug("Key not found, nothing was deleted.")
+        print("Key: " + response.json()["key"] + "\n")
+        logger.debug("Key: " + response.json()["key"])
     else:
-        print("Failed to delete key.")
+        print(response)
+        print("Failed to delete key.\n")
         logger.debug("Failed to delete key.")
 
 

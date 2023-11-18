@@ -1,24 +1,24 @@
-2023-11-18 14:56:50,301 Starting registration process for the 1 containers
-2023-11-18 14:56:50,301 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
-2023-11-18 14:56:50,301 Found file at path: /home/coscotuff/.docker/config.json
-2023-11-18 14:56:50,301 Couldn't find auth-related section ; attempting to interpret as auth-only file
-2023-11-18 14:56:50,301 Auth data for auths is absent. Client might be using a credentials store instead.
-2023-11-18 14:56:50,301 Config entry for key credStore is not auth config
-2023-11-18 14:56:50,309 http://localhost:None "GET /version HTTP/1.1" 200 820
-2023-11-18 14:56:50,311 http://localhost:None "GET /v1.42/containers/json?limit=-1&all=0&size=0&trunc_cmd=0 HTTP/1.1" 200 926
-2023-11-18 14:56:50,312 http://localhost:None "GET /v1.42/containers/66ac3af9fade49726692a02547ce13c864ccf0ec247df5efb93b5f510b25913a/json HTTP/1.1" 200 None
-2023-11-18 14:56:50,626 http://localhost:None "DELETE /v1.42/containers/66ac3af9fade49726692a02547ce13c864ccf0ec247df5efb93b5f510b25913a?v=False&link=False&force=True HTTP/1.1" 204 0
-2023-11-18 14:56:50,626 Removed all containers
-2023-11-18 14:56:50,626 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
-2023-11-18 14:56:50,626 Found file at path: /home/coscotuff/.docker/config.json
-2023-11-18 14:56:50,626 Couldn't find auth-related section ; attempting to interpret as auth-only file
-2023-11-18 14:56:50,626 Auth data for auths is absent. Client might be using a credentials store instead.
-2023-11-18 14:56:50,627 Config entry for key credStore is not auth config
-2023-11-18 14:56:50,634 http://localhost:None "GET /version HTTP/1.1" 200 820
-2023-11-18 14:56:50,635 Fetched docker env information...
-2023-11-18 14:56:50,648 http://localhost:None "POST /v1.42/containers/create?name=endServer0 HTTP/1.1" 201 88
-2023-11-18 14:56:50,650 http://localhost:None "GET /v1.42/containers/3ffa37edfd01c373a6ad90af20eccb61af26953f37c073439645c17cae4f780b/json HTTP/1.1" 200 None
-2023-11-18 14:56:50,974 http://localhost:None "POST /v1.42/containers/3ffa37edfd01c373a6ad90af20eccb61af26953f37c073439645c17cae4f780b/start HTTP/1.1" 204 0
-2023-11-18 14:56:50,974 Started container 0
-2023-11-18 14:56:50,975 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-11-18 14:56:50,977 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 79
+2023-11-18 22:06:21,566 Starting registration process for the 1 containers
+2023-11-18 22:06:21,566 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
+2023-11-18 22:06:21,566 Found file at path: /home/coscotuff/.docker/config.json
+2023-11-18 22:06:21,567 Couldn't find auth-related section ; attempting to interpret as auth-only file
+2023-11-18 22:06:21,567 Auth data for auths is absent. Client might be using a credentials store instead.
+2023-11-18 22:06:21,567 Config entry for key credStore is not auth config
+2023-11-18 22:06:21,575 http://localhost:None "GET /version HTTP/1.1" 200 820
+2023-11-18 22:06:21,577 http://localhost:None "GET /v1.42/containers/json?limit=-1&all=0&size=0&trunc_cmd=0 HTTP/1.1" 200 930
+2023-11-18 22:06:21,578 http://localhost:None "GET /v1.42/containers/c29b3bd0ebd1cbda8beace5a196398cf11b3bbefad67e95d28e48f0b292ef9a9/json HTTP/1.1" 200 None
+2023-11-18 22:06:21,951 http://localhost:None "DELETE /v1.42/containers/c29b3bd0ebd1cbda8beace5a196398cf11b3bbefad67e95d28e48f0b292ef9a9?v=False&link=False&force=True HTTP/1.1" 204 0
+2023-11-18 22:06:21,952 Removed all containers
+2023-11-18 22:06:21,952 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
+2023-11-18 22:06:21,952 Found file at path: /home/coscotuff/.docker/config.json
+2023-11-18 22:06:21,952 Couldn't find auth-related section ; attempting to interpret as auth-only file
+2023-11-18 22:06:21,952 Auth data for auths is absent. Client might be using a credentials store instead.
+2023-11-18 22:06:21,952 Config entry for key credStore is not auth config
+2023-11-18 22:06:21,957 http://localhost:None "GET /version HTTP/1.1" 200 820
+2023-11-18 22:06:21,958 Fetched docker env information...
+2023-11-18 22:06:21,968 http://localhost:None "POST /v1.42/containers/create?name=endServer0 HTTP/1.1" 201 88
+2023-11-18 22:06:21,971 http://localhost:None "GET /v1.42/containers/87f438ce25a631bbb2ec3dd8c11b3d8c101e6af0ab7b8744ee6aeceb31476ad4/json HTTP/1.1" 200 None
+2023-11-18 22:06:22,290 http://localhost:None "POST /v1.42/containers/87f438ce25a631bbb2ec3dd8c11b3d8c101e6af0ab7b8744ee6aeceb31476ad4/start HTTP/1.1" 204 0
+2023-11-18 22:06:22,291 Started container 0
+2023-11-18 22:06:22,292 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-11-18 22:06:22,293 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 79
