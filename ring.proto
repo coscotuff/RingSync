@@ -1,0 +1,29 @@
+// Proto file for connection between the client and intermediate balancer, as well as between portal and initialiser of scaler
+// python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. ring.proto
+
+syntax = "proto3";
+package ring;
+
+// To store the message from the client
+
+message keyValue
+{
+    optional string key = 1;
+    optional string value = 2;
+}
+
+message returnValue
+{
+    optional string updated = 1;
+    optional string key = 2;
+    optional string value = 3;
+}
+
+// Void message for when nothing actually needs to be returned
+message void {}
+
+service Alert
+{
+    rpc Delete(keyValue) returns (returnValue) {}
+    rpc Add(keyValue) returns (returnValue) {}
+}
