@@ -6,8 +6,7 @@ import requests
 
 # Create the shell script files to run all the files in the correct order
 
-# Need to add a couple of things: On the end server side of things, they need to be able to process the create and delete commands, there needs to be locking
-# There needs to be mapping of port numbers in the container to actual port numbers
+# Need to add a couple of things: On the end server side of things, there needs to be locking
 
 app = Flask(__name__)
 
@@ -33,6 +32,7 @@ def GetServers(hashes):
 
 
 def AddServerToRing(server):
+    global serverCount
     # Add server to the ring
     # Return the hash of the server
     tempChain = LinkedList()
@@ -43,8 +43,9 @@ def AddServerToRing(server):
         h64 = (h64 + stepSize) % ceiling
 
     nodes.MergeLists(tempChain.head)
+    nodes.PrintLL()
+    print("Server added to ring successfully.\n")
     serverCount += 1
-    return
 
 
 @app.route("/")
@@ -54,12 +55,17 @@ def Entry():
 
 @app.route("/delete")
 def Delete(key):
+    if serverList.empty():
+        return (
+            jsonify({"status": "No servers registered."}),
+            500,
+        )
     hashes = Hash64(key)
     servers = GetServers(hashes)
     for server in servers:
         # Make POST request to server to Delete value associated with key
         response = requests.post(
-            "http://" + serverList[server] + "/delete", json={"key": key}
+            "http://" + serverList[server] + "/del", json={"key": key}
         )
         if response.status_code == 200:
             print("Key deleted successfully.")
@@ -73,6 +79,11 @@ def Delete(key):
 
 @app.post("/create")
 def Create():
+    if serverList.empty():
+        return (
+            jsonify({"status": "No servers registered."}),
+            500,
+        )
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
     for server in servers:
@@ -191,7 +202,7 @@ if __name__ == "__main__":
     logger.setLevel(logging.DEBUG)
     logger.debug("Starting the intermediate server")
 
-    virtualNodeCount = 500
+    virtualNodeCount = 5
     N = 10
     serverList = []
     serverCount = 0
