@@ -13,6 +13,11 @@ class Server(ring_pb2_grpc.AlertServicer):
 
     def Delete(self, request, context):
         lock.acquire()
+
+        if request.key not in vector:
+            vector[request.key] = 0
+        vector[request.key] += 1
+
         status = "False"
         data = []
         # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
@@ -32,11 +37,18 @@ class Server(ring_pb2_grpc.AlertServicer):
 
         lock.release()
         return ring_pb2.returnValue(
-            updated=status, key=request.key
+            updated=status,
+            key=request.key,
+            timestamp=vector[request.key],
         )
-        
+
     def Read(self, request, context):
         lock.acquire()
+
+        if request.key not in vector:
+            vector[request.key] = 0
+        vector[request.key] += 1
+
         status = "False"
         data = []
         # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
@@ -53,11 +65,18 @@ class Server(ring_pb2_grpc.AlertServicer):
 
         lock.release()
         return ring_pb2.returnValue(
-            updated=status, key=value
+            updated=status,
+            key=value,
+            timestamp=vector[request.key],
         )
 
     def Add(self, request, context):
         lock.acquire()
+
+        if request.key not in vector:
+            vector[request.key] = 0
+        vector[request.key] += 1
+
         status = "False"
         data = []
         # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
@@ -84,7 +103,10 @@ class Server(ring_pb2_grpc.AlertServicer):
 
         lock.release()
         return ring_pb2.returnValue(
-            updated=status, key=request.key, value=request.value
+            updated=status,
+            key=request.key,
+            value=request.value,
+            timestamp=vector[request.key],
         )
 
 
@@ -112,6 +134,8 @@ if __name__ == "__main__":
 
     # Locking for serialising access to the database
     lock = threading.Lock()
+
+    vector = {}
 
     # Start the server
     serve()

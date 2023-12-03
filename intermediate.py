@@ -23,6 +23,7 @@ def Hash64(key):
     for i in range(0, N):
         data = mmh3.hash64(str(data).encode("utf-8"))[0] % ceiling
         hashes.append(data)
+    print("Hashes: ", hashes)
     return hashes
 
 
@@ -66,6 +67,12 @@ def Delete():
         )
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
+
+    # print("Servers: ", servers)
+    # print("Hashes: ", hashes)
+
+    vector = []
+
     for server in servers:
         # Make an gRPC call to the end server
         # print("Server: " + serverList[server])
@@ -74,18 +81,26 @@ def Delete():
             response = stub.Delete(ring_pb2.keyValue(key=request.json["key"]))
 
             logger.debug(
-                "Value associated with key deleted successfully: " + response.key
+                "Value associated with key deleted successfully: "
+                + response.key
+                + " with timestamp "
+                + str(response.timestamp)
             )
+            vector.append(response.timestamp)
 
     return (
         jsonify(
             {
                 "update": response.updated,
                 "key": response.key,
+                "vector": vector,
+                "hashes": hashes,
+                "servers": list(servers),
             }
         ),
         200,
     )
+
 
 @app.post("/read")
 def Read():
@@ -96,6 +111,12 @@ def Read():
         )
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
+
+    # print("Servers: ", servers)
+    # print("Hashes: ", hashes)
+
+    vector = []
+
     for server in servers:
         # Make a gRPC call to the end server
         # print("Server: " + serverList[server])
@@ -104,18 +125,28 @@ def Read():
             response = stub.Read(ring_pb2.keyValue(key=request.json["key"]))
 
             logger.debug(
-                "Value associated with key " + request.json["key"] + ": " + response.key
+                "Value associated with key "
+                + request.json["key"]
+                + ": "
+                + response.key
+                + " with timestamp "
+                + str(response.timestamp)
             )
+            vector.append(response.timestamp)
 
     return (
         jsonify(
             {
                 "update": response.updated,
                 "key": response.key,
+                "vector": vector,
+                "hashes": hashes,
+                "servers": list(servers),
             }
         ),
         200,
     )
+
 
 @app.post("/create")
 def Create():
@@ -128,6 +159,12 @@ def Create():
     logger.debug("Hashing done.")
     servers = GetServers(hashes)
     logger.debug("Servers retrieved.")
+
+    # print("Servers: ", servers)
+    # print("Hashes: ", hashes)
+
+    vector = []
+
     for server in servers:
         # Make an gRPC call to the end server
         # print("Server: " + serverList[server])
@@ -142,7 +179,10 @@ def Create():
                 + response.key
                 + " "
                 + response.value
+                + " with timestamp "
+                + str(response.timestamp)
             )
+            vector.append(response.timestamp)
 
     return (
         jsonify(
@@ -150,6 +190,9 @@ def Create():
                 "update": response.updated,
                 "key": response.key,
                 "value": response.value,
+                "vector": vector,
+                "hashes": hashes,
+                "servers": list(servers),
             }
         ),
         200,
@@ -257,10 +300,10 @@ if __name__ == "__main__":
     logger.debug("Starting the intermediate server")
 
     # Configure the number of virtual nodes
-    virtualNodeCount = 5
+    virtualNodeCount = 20
 
     # Configure the number of times data is to be replicated
-    N = 1
+    N = 4
     serverList = []
     serverCount = 0
     ceiling = 2**64

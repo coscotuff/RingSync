@@ -17,6 +17,7 @@ message returnValue
     optional string updated = 1;
     optional string key = 2;
     optional string value = 3;
+    optional int32 timestamp = 4;
 }
 
 // Void message for when nothing actually needs to be returned

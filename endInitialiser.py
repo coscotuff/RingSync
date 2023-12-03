@@ -71,7 +71,7 @@ if __name__ == "__main__":
     # Set the IP address and port number of the intermediate server here
     intermediateIP = "127.0.0.1:6000"
     # Set number of containers here
-    containerCount = 1
+    containerCount = 5
 
     logger.debug(
         "Starting registration process for the " + str(containerCount) + " containers"

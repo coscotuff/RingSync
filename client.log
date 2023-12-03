@@ -1,20 +1,6 @@
-2023-12-03 13:59:30,788 Starting the client application
-2023-12-03 13:59:34,805 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:34,863 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-12-03 13:59:34,864 Key-value pair added successfully.
-2023-12-03 13:59:37,501 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:37,535 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-12-03 13:59:37,539 Key-value pair added successfully.
-2023-12-03 13:59:39,536 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:39,557 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-12-03 13:59:39,558 Key-value pair added successfully.
-2023-12-03 13:59:43,148 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:43,167 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 54
-2023-12-03 13:59:43,168 Key-value pair added successfully.
-2023-12-03 13:59:45,858 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:45,870 http://127.0.0.1:6000 "POST /delete HTTP/1.1" 200 37
-2023-12-03 13:59:45,872 Key-value pair updated successfully.
-2023-12-03 13:59:45,872 Key: 5
-2023-12-03 13:59:51,322 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 13:59:51,593 http://127.0.0.1:6000 "POST /read HTTP/1.1" 500 20295
-2023-12-03 13:59:51,593 Failed to retrieve value.
+2023-12-03 15:47:38,435 Starting the client application
+2023-12-03 15:47:48,761 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 15:47:48,775 http://127.0.0.1:6000 "POST /create HTTP/1.1" 200 238
+2023-12-03 15:47:48,776 Key-value pair added successfully.
+2023-12-03 15:47:48,776 Key: 3
+2023-12-03 15:47:48,776 Value: 2

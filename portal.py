@@ -1,5 +1,6 @@
 import requests
 import logging
+import json
 import sys
 
 
@@ -18,10 +19,21 @@ def CreateKeyValue(key, value, IP):
             print("Key-value pair added successfully...")
             logger.debug("Key-value pair added successfully.")
         print("Key: " + response.json()["key"])
-        print("Value: " + response.json()["value"] + "\n")
+        print("Value: " + response.json()["value"])
+        print("Vector clock across replicas: " + str(response.json()["vector"]))
+        print("Added to servers: " + str(response.json()["servers"]))
+        print(
+            "Virtual node numbers of servers: " + str(response.json()["hashes"]) + "\n"
+        )
+        logger.debug("Key: " + response.json()["key"])
+        logger.debug("Value: " + response.json()["value"])
     else:
         print("Failed to create key-value pair. \n")
         logger.debug("Failed to create key-value pair.")
+
+    save_file = open("savedata.json", "a")
+    json.dump(response.json(), save_file, indent=6)
+    save_file.close()
 
 
 def DeleteKey(key, IP):
@@ -30,7 +42,9 @@ def DeleteKey(key, IP):
     if response.status_code == 200:
         if response.json()["update"] == "True":
             print("Entry for key found...")
-            print("Deleted!")
+            print("Deleted from servers: " + str(response.json()["servers"]))
+            print("Virtual node numbers of servers: " + str(response.json()["hashes"]))
+            print("Vector clock across replicas: " + str(response.json()["vector"]))
             logger.debug("Key-value pair updated successfully.")
         else:
             print("Key not found, nothing was deleted.")
@@ -42,6 +56,11 @@ def DeleteKey(key, IP):
         print("Failed to delete key.\n")
         logger.debug("Failed to delete key.")
 
+    save_file = open("savedata.json", "a")
+    json.dump(response.json(), save_file, indent=6)
+    save_file.close()
+
+
 def ReadKey(key, IP):
     # Make a READ request to the server to read a key
     response = requests.post("http://" + IP + ":6000/read", json={"key": key})
@@ -49,7 +68,12 @@ def ReadKey(key, IP):
         if response.json()["update"] == "True":
             print("Entry for key found...")
             print("Value associated with key " + key + ": " + response.json()["key"])
-            logger.debug("Value associated with key " + key + ": " + response.json()["key"])
+            print(
+                "Vector clock across replicas: " + str(response.json()["vector"]) + "\n"
+            )
+            logger.debug(
+                "Value associated with key " + key + ": " + response.json()["key"]
+            )
         else:
             print("Key not found.")
             logger.debug("Key not found.")
@@ -57,6 +81,10 @@ def ReadKey(key, IP):
         print(response)
         print("Failed to retrieve value.\n")
         logger.debug("Failed to retrieve value.")
+
+    save_file = open("savedata.json", "a")
+    json.dump(response.json(), save_file, indent=6)
+    save_file.close()
 
 
 def main():
