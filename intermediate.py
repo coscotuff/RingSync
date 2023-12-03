@@ -87,6 +87,35 @@ def Delete():
         200,
     )
 
+@app.post("/read")
+def Read():
+    if len(serverList) == 0:
+        return (
+            jsonify({"update": "No servers registered.", "key": "No"}),
+            500,
+        )
+    hashes = Hash64(request.json["key"])
+    servers = GetServers(hashes)
+    for server in servers:
+        # Make a gRPC call to the end server
+        # print("Server: " + serverList[server])
+        with grpc.insecure_channel(serverList[server]) as channel:
+            stub = ring_pb2_grpc.AlertStub(channel)
+            response = stub.Read(ring_pb2.keyValue(key=request.json["key"]))
+
+            logger.debug(
+                "Value associated with key " + request.json["key"] + ": " + response.key
+            )
+
+    return (
+        jsonify(
+            {
+                "update": response.updated,
+                "key": response.key,
+            }
+        ),
+        200,
+    )
 
 @app.post("/create")
 def Create():

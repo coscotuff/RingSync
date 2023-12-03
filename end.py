@@ -34,6 +34,27 @@ class Server(ring_pb2_grpc.AlertServicer):
         return ring_pb2.returnValue(
             updated=status, key=request.key
         )
+        
+    def Read(self, request, context):
+        lock.acquire()
+        status = "False"
+        data = []
+        # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
+        with open("database.csv", "r", newline="") as r:
+            read = csv.reader(r)
+            data = list(read)
+
+        value = ""
+        for row in data:
+            if row[0] == request.key:
+                value = row[1]
+                status = "True"
+                break
+
+        lock.release()
+        return ring_pb2.returnValue(
+            updated=status, key=value
+        )
 
     def Add(self, request, context):
         lock.acquire()

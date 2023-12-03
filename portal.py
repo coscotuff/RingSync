@@ -42,6 +42,22 @@ def DeleteKey(key, IP):
         print("Failed to delete key.\n")
         logger.debug("Failed to delete key.")
 
+def ReadKey(key, IP):
+    # Make a READ request to the server to read a key
+    response = requests.post("http://" + IP + ":6000/read", json={"key": key})
+    if response.status_code == 200:
+        if response.json()["update"] == "True":
+            print("Entry for key found...")
+            print("Value associated with key " + key + ": " + response.json()["key"])
+            logger.debug("Value associated with key " + key + ": " + response.json()["key"])
+        else:
+            print("Key not found.")
+            logger.debug("Key not found.")
+    else:
+        print(response)
+        print("Failed to retrieve value.\n")
+        logger.debug("Failed to retrieve value.")
+
 
 def main():
     # The IP address of the server is taken in as a command line argument
@@ -51,7 +67,8 @@ def main():
         print("Menu:")
         print("1. Create key-value pair")
         print("2. Delete key")
-        print("3. Exit")
+        print("3. Read key")
+        print("4. Exit")
         choice = input("Enter your choice: ")
 
         if choice == "1":
@@ -62,6 +79,9 @@ def main():
             key = input("Enter the key to delete: ")
             DeleteKey(key, serverIP)
         elif choice == "3":
+            key = input("Enter the key to read: ")
+            ReadKey(key, serverIP)
+        elif choice == "4":
             break
         else:
             print("Invalid choice. Please try again.")

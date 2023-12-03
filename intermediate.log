@@ -1,27 +1,27 @@
-2023-11-18 23:08:43,216 Starting the intermediate server
-2023-11-18 23:08:43,218 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:6000
-2023-11-18 23:08:43,218 [33mPress CTRL+C to quit[0m
-2023-11-18 23:08:58,592 127.0.0.1 - - [18/Nov/2023 23:08:58] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:14,780 127.0.0.1 - - [18/Nov/2023 23:10:14] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:45,752 127.0.0.1 - - [18/Nov/2023 23:10:45] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:46,139 127.0.0.1 - - [18/Nov/2023 23:10:46] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:46,572 127.0.0.1 - - [18/Nov/2023 23:10:46] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:46,931 127.0.0.1 - - [18/Nov/2023 23:10:46] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:47,251 127.0.0.1 - - [18/Nov/2023 23:10:47] "POST /register HTTP/1.1" 200 -
-2023-11-18 23:10:57,232 Hashing done.
-2023-11-18 23:10:57,232 Servers retrieved.
-2023-11-18 23:10:57,243 Key-value pair added successfully: 1 1
-2023-11-18 23:10:57,245 127.0.0.1 - - [18/Nov/2023 23:10:57] "POST /create HTTP/1.1" 200 -
-2023-11-18 23:11:22,015 Value associated with key deleted successfully: 1
-2023-11-18 23:11:22,016 127.0.0.1 - - [18/Nov/2023 23:11:22] "POST /delete HTTP/1.1" 200 -
-2023-11-18 23:11:33,288 Hashing done.
-2023-11-18 23:11:33,288 Servers retrieved.
-2023-11-18 23:11:33,292 Key-value pair added successfully: 1 2
-2023-11-18 23:11:33,293 127.0.0.1 - - [18/Nov/2023 23:11:33] "POST /create HTTP/1.1" 200 -
-2023-11-18 23:12:06,470 Value associated with key deleted successfully: 2
-2023-11-18 23:12:06,472 127.0.0.1 - - [18/Nov/2023 23:12:06] "POST /delete HTTP/1.1" 200 -
-2023-11-18 23:12:15,071 Hashing done.
-2023-11-18 23:12:15,071 Servers retrieved.
-2023-11-18 23:12:15,074 Key-value pair added successfully: 1 1
-2023-11-18 23:12:15,075 127.0.0.1 - - [18/Nov/2023 23:12:15] "POST /create HTTP/1.1" 200 -
+2023-12-03 13:58:47,973 Starting the intermediate server
+2023-12-03 13:58:47,973  * Debugger is active!
+2023-12-03 13:58:47,993  * Debugger PIN: 729-501-857
+2023-12-03 13:59:14,452 127.0.0.1 - - [03/Dec/2023 13:59:14] "POST /register HTTP/1.1" 200 -
+2023-12-03 13:59:16,029 127.0.0.1 - - [03/Dec/2023 13:59:16] "POST /register HTTP/1.1" 200 -
+2023-12-03 13:59:17,351 127.0.0.1 - - [03/Dec/2023 13:59:17] "POST /register HTTP/1.1" 200 -
+2023-12-03 13:59:18,866 127.0.0.1 - - [03/Dec/2023 13:59:18] "POST /register HTTP/1.1" 200 -
+2023-12-03 13:59:26,838 127.0.0.1 - - [03/Dec/2023 13:59:26] "POST /register HTTP/1.1" 200 -
+2023-12-03 13:59:34,805 Hashing done.
+2023-12-03 13:59:34,805 Servers retrieved.
+2023-12-03 13:59:34,860 Key-value pair added successfully: 1 2
+2023-12-03 13:59:34,862 127.0.0.1 - - [03/Dec/2023 13:59:34] "POST /create HTTP/1.1" 200 -
+2023-12-03 13:59:37,501 Hashing done.
+2023-12-03 13:59:37,501 Servers retrieved.
+2023-12-03 13:59:37,533 Key-value pair added successfully: 3 4
+2023-12-03 13:59:37,535 127.0.0.1 - - [03/Dec/2023 13:59:37] "POST /create HTTP/1.1" 200 -
+2023-12-03 13:59:39,536 Hashing done.
+2023-12-03 13:59:39,536 Servers retrieved.
+2023-12-03 13:59:39,555 Key-value pair added successfully: 5 6
+2023-12-03 13:59:39,556 127.0.0.1 - - [03/Dec/2023 13:59:39] "POST /create HTTP/1.1" 200 -
+2023-12-03 13:59:43,153 Hashing done.
+2023-12-03 13:59:43,153 Servers retrieved.
+2023-12-03 13:59:43,164 Key-value pair added successfully: 6 7
+2023-12-03 13:59:43,166 127.0.0.1 - - [03/Dec/2023 13:59:43] "POST /create HTTP/1.1" 200 -
+2023-12-03 13:59:45,868 Value associated with key deleted successfully: 5
+2023-12-03 13:59:45,870 127.0.0.1 - - [03/Dec/2023 13:59:45] "POST /delete HTTP/1.1" 200 -
+2023-12-03 13:59:51,593 127.0.0.1 - - [03/Dec/2023 13:59:51] "[35m[1mPOST /read HTTP/1.1[0m" 500 -

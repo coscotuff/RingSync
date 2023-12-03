@@ -26,4 +26,5 @@ service Alert
 {
     rpc Delete(keyValue) returns (returnValue) {}
     rpc Add(keyValue) returns (returnValue) {}
+    rpc Read(keyValue) returns (returnValue) {}
 }
