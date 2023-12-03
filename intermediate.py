@@ -61,6 +61,7 @@ def Entry():
 @app.post("/delete")
 def Delete():
     if len(serverList) == 0:
+        print("Error: No servers registered, can't service request. \n")
         return (
             jsonify({"update": "No servers registered.", "key": "No"}),
             500,
@@ -68,8 +69,8 @@ def Delete():
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
 
-    # print("Servers: ", servers)
-    # print("Hashes: ", hashes)
+    print("Servers: ", servers)
+    print("Hashes: ", hashes)
 
     vector = []
 
@@ -79,14 +80,22 @@ def Delete():
         with grpc.insecure_channel(serverList[server]) as channel:
             stub = ring_pb2_grpc.AlertStub(channel)
             response = stub.Delete(ring_pb2.keyValue(key=request.json["key"]))
+            vector.append(response.timestamp)
 
             logger.debug(
-                "Value associated with key deleted successfully: "
+                "Delete request for key serviced: "
                 + response.key
                 + " with timestamp "
                 + str(response.timestamp)
             )
-            vector.append(response.timestamp)
+
+    print(
+        "Delete request for key serviced: "
+        + response.key
+        + " with timestamp "
+        + str(response.timestamp)
+        + "\n"
+    )
 
     return (
         jsonify(
@@ -105,6 +114,7 @@ def Delete():
 @app.post("/read")
 def Read():
     if len(serverList) == 0:
+        print("Error: No servers registered, can't service request. \n")
         return (
             jsonify({"update": "No servers registered.", "key": "No"}),
             500,
@@ -112,8 +122,8 @@ def Read():
     hashes = Hash64(request.json["key"])
     servers = GetServers(hashes)
 
-    # print("Servers: ", servers)
-    # print("Hashes: ", hashes)
+    print("Servers: ", servers)
+    print("Hashes: ", hashes)
 
     vector = []
 
@@ -123,16 +133,26 @@ def Read():
         with grpc.insecure_channel(serverList[server]) as channel:
             stub = ring_pb2_grpc.AlertStub(channel)
             response = stub.Read(ring_pb2.keyValue(key=request.json["key"]))
+            vector.append(response.timestamp)
 
             logger.debug(
-                "Value associated with key "
+                "Read request for key serviced:"
                 + request.json["key"]
                 + ": "
                 + response.key
                 + " with timestamp "
                 + str(response.timestamp)
             )
-            vector.append(response.timestamp)
+
+    print(
+        "Read request for key serviced:"
+        + request.json["key"]
+        + ": "
+        + response.key
+        + " with timestamp "
+        + str(response.timestamp)
+        + "\n"
+    )
 
     return (
         jsonify(
@@ -151,6 +171,7 @@ def Read():
 @app.post("/create")
 def Create():
     if len(serverList) == 0:
+        print("Error: No servers registered, can't service request. \n")
         return (
             jsonify({"status": "No servers registered."}),
             500,
@@ -160,8 +181,8 @@ def Create():
     servers = GetServers(hashes)
     logger.debug("Servers retrieved.")
 
-    # print("Servers: ", servers)
-    # print("Hashes: ", hashes)
+    print("Servers: ", servers)
+    print("Hashes: ", hashes)
 
     vector = []
 
@@ -183,6 +204,78 @@ def Create():
                 + str(response.timestamp)
             )
             vector.append(response.timestamp)
+
+    print(
+        "Key-value pair added successfully: "
+        + response.key
+        + " "
+        + response.value
+        + " with timestamp "
+        + str(response.timestamp)
+        + "\n"
+    )
+
+    return (
+        jsonify(
+            {
+                "update": response.updated,
+                "key": response.key,
+                "value": response.value,
+                "vector": vector,
+                "hashes": hashes,
+                "servers": list(servers),
+            }
+        ),
+        200,
+    )
+
+
+@app.post("/update")
+def Update():
+    if len(serverList) == 0:
+        print("Error: No servers registered, can't service request. \n")
+        return (
+            jsonify({"status": "No servers registered."}),
+            500,
+        )
+    hashes = Hash64(request.json["key"])
+    logger.debug("Hashing done.")
+    servers = GetServers(hashes)
+    logger.debug("Servers retrieved.")
+
+    print("Servers: ", servers)
+    print("Hashes: ", hashes)
+
+    vector = []
+
+    for server in servers:
+        # Make an gRPC call to the end server
+        # print("Server: " + serverList[server])
+        with grpc.insecure_channel(serverList[server]) as channel:
+            stub = ring_pb2_grpc.AlertStub(channel)
+            response = stub.Update(
+                ring_pb2.keyValue(key=request.json["key"], value=request.json["value"])
+            )
+
+            logger.debug(
+                "Updation request processed: "
+                + response.key
+                + " "
+                + response.value
+                + " with timestamp "
+                + str(response.timestamp)
+            )
+            vector.append(response.timestamp)
+
+    print(
+        "Updation request processed: "
+        + response.key
+        + " "
+        + response.value
+        + " with timestamp "
+        + str(response.timestamp)
+        + "\n"
+    )
 
     return (
         jsonify(

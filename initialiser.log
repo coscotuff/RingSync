@@ -1,46 +1,46 @@
-2023-12-03 15:47:30,766 Starting registration process for the 5 containers
-2023-12-03 15:47:30,767 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
-2023-12-03 15:47:30,767 Found file at path: /home/coscotuff/.docker/config.json
-2023-12-03 15:47:30,767 Couldn't find auth-related section ; attempting to interpret as auth-only file
-2023-12-03 15:47:30,767 Auth data for auths is absent. Client might be using a credentials store instead.
-2023-12-03 15:47:30,767 Config entry for key credStore is not auth config
-2023-12-03 15:47:30,773 http://localhost:None "GET /version HTTP/1.1" 200 820
-2023-12-03 15:47:30,775 http://localhost:None "GET /v1.42/containers/json?limit=-1&all=0&size=0&trunc_cmd=0 HTTP/1.1" 200 3
-2023-12-03 15:47:30,775 Removed all containers
-2023-12-03 15:47:30,775 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
-2023-12-03 15:47:30,775 Found file at path: /home/coscotuff/.docker/config.json
-2023-12-03 15:47:30,775 Couldn't find auth-related section ; attempting to interpret as auth-only file
-2023-12-03 15:47:30,775 Auth data for auths is absent. Client might be using a credentials store instead.
-2023-12-03 15:47:30,775 Config entry for key credStore is not auth config
-2023-12-03 15:47:30,780 http://localhost:None "GET /version HTTP/1.1" 200 820
-2023-12-03 15:47:30,780 Fetched docker env information...
-2023-12-03 15:47:30,788 http://localhost:None "POST /v1.42/containers/create?name=endServer1 HTTP/1.1" 201 88
-2023-12-03 15:47:30,790 http://localhost:None "GET /v1.42/containers/f16293fc412d376ed44343c4a1643d45c122321229d7389fc29c8924771e1c70/json HTTP/1.1" 200 None
-2023-12-03 15:47:31,061 http://localhost:None "POST /v1.42/containers/f16293fc412d376ed44343c4a1643d45c122321229d7389fc29c8924771e1c70/start HTTP/1.1" 204 0
-2023-12-03 15:47:31,062 Started container 1
-2023-12-03 15:47:31,062 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 15:47:31,064 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
-2023-12-03 15:47:31,074 http://localhost:None "POST /v1.42/containers/create?name=endServer2 HTTP/1.1" 201 88
-2023-12-03 15:47:31,075 http://localhost:None "GET /v1.42/containers/2e9dc17e37856a32ce19234264136568e07ff8fec29d14bdefd13b8b869cb4d4/json HTTP/1.1" 200 None
-2023-12-03 15:47:31,333 http://localhost:None "POST /v1.42/containers/2e9dc17e37856a32ce19234264136568e07ff8fec29d14bdefd13b8b869cb4d4/start HTTP/1.1" 204 0
-2023-12-03 15:47:31,333 Started container 2
-2023-12-03 15:47:31,333 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 15:47:31,335 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
-2023-12-03 15:47:31,343 http://localhost:None "POST /v1.42/containers/create?name=endServer3 HTTP/1.1" 201 88
-2023-12-03 15:47:31,345 http://localhost:None "GET /v1.42/containers/5b5c6ff05b913730e7e952116f2a5d459956a3965c845852eb28eba4937e7529/json HTTP/1.1" 200 None
-2023-12-03 15:47:31,652 http://localhost:None "POST /v1.42/containers/5b5c6ff05b913730e7e952116f2a5d459956a3965c845852eb28eba4937e7529/start HTTP/1.1" 204 0
-2023-12-03 15:47:31,653 Started container 3
-2023-12-03 15:47:31,653 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 15:47:31,655 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
-2023-12-03 15:47:31,664 http://localhost:None "POST /v1.42/containers/create?name=endServer4 HTTP/1.1" 201 88
-2023-12-03 15:47:31,665 http://localhost:None "GET /v1.42/containers/75b3260c53318e192939843ad21a00c95ffc4378be8bf15cf483d5fdf6f88edd/json HTTP/1.1" 200 None
-2023-12-03 15:47:31,945 http://localhost:None "POST /v1.42/containers/75b3260c53318e192939843ad21a00c95ffc4378be8bf15cf483d5fdf6f88edd/start HTTP/1.1" 204 0
-2023-12-03 15:47:31,945 Started container 4
-2023-12-03 15:47:31,946 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 15:47:31,947 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
-2023-12-03 15:47:31,957 http://localhost:None "POST /v1.42/containers/create?name=endServer5 HTTP/1.1" 201 88
-2023-12-03 15:47:31,958 http://localhost:None "GET /v1.42/containers/c75186d4d8b763e5841620522bde9582b3e26be32741b03fe78faa4548eacfaa/json HTTP/1.1" 200 None
-2023-12-03 15:47:32,244 http://localhost:None "POST /v1.42/containers/c75186d4d8b763e5841620522bde9582b3e26be32741b03fe78faa4548eacfaa/start HTTP/1.1" 204 0
-2023-12-03 15:47:32,245 Started container 5
-2023-12-03 15:47:32,245 Starting new HTTP connection (1): 127.0.0.1:6000
-2023-12-03 15:47:32,246 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
+2023-12-03 16:44:14,624 Starting registration process for the 5 containers
+2023-12-03 16:44:14,625 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
+2023-12-03 16:44:14,625 Found file at path: /home/coscotuff/.docker/config.json
+2023-12-03 16:44:14,625 Couldn't find auth-related section ; attempting to interpret as auth-only file
+2023-12-03 16:44:14,625 Auth data for auths is absent. Client might be using a credentials store instead.
+2023-12-03 16:44:14,625 Config entry for key credStore is not auth config
+2023-12-03 16:44:14,633 http://localhost:None "GET /version HTTP/1.1" 200 820
+2023-12-03 16:44:14,636 http://localhost:None "GET /v1.42/containers/json?limit=-1&all=0&size=0&trunc_cmd=0 HTTP/1.1" 200 3
+2023-12-03 16:44:14,636 Removed all containers
+2023-12-03 16:44:14,636 Trying paths: ['/home/coscotuff/.docker/config.json', '/home/coscotuff/.dockercfg']
+2023-12-03 16:44:14,636 Found file at path: /home/coscotuff/.docker/config.json
+2023-12-03 16:44:14,636 Couldn't find auth-related section ; attempting to interpret as auth-only file
+2023-12-03 16:44:14,636 Auth data for auths is absent. Client might be using a credentials store instead.
+2023-12-03 16:44:14,636 Config entry for key credStore is not auth config
+2023-12-03 16:44:14,642 http://localhost:None "GET /version HTTP/1.1" 200 820
+2023-12-03 16:44:14,643 Fetched docker env information...
+2023-12-03 16:44:14,653 http://localhost:None "POST /v1.42/containers/create?name=endServer1 HTTP/1.1" 201 88
+2023-12-03 16:44:14,655 http://localhost:None "GET /v1.42/containers/13f9307d1233e65532b045d06f820dd87a7f974017dc2cf69577698dde07a443/json HTTP/1.1" 200 None
+2023-12-03 16:44:15,018 http://localhost:None "POST /v1.42/containers/13f9307d1233e65532b045d06f820dd87a7f974017dc2cf69577698dde07a443/start HTTP/1.1" 204 0
+2023-12-03 16:44:15,019 Started container 1
+2023-12-03 16:44:15,020 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 16:44:15,022 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
+2023-12-03 16:44:15,034 http://localhost:None "POST /v1.42/containers/create?name=endServer2 HTTP/1.1" 201 88
+2023-12-03 16:44:15,036 http://localhost:None "GET /v1.42/containers/39e6b7a8686a5c326dc7a140f8d95c5e82aa5b8ce45f9102967829d23d03de51/json HTTP/1.1" 200 None
+2023-12-03 16:44:15,390 http://localhost:None "POST /v1.42/containers/39e6b7a8686a5c326dc7a140f8d95c5e82aa5b8ce45f9102967829d23d03de51/start HTTP/1.1" 204 0
+2023-12-03 16:44:15,391 Started container 2
+2023-12-03 16:44:15,391 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 16:44:15,393 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
+2023-12-03 16:44:15,404 http://localhost:None "POST /v1.42/containers/create?name=endServer3 HTTP/1.1" 201 88
+2023-12-03 16:44:15,406 http://localhost:None "GET /v1.42/containers/e20f7392d45001f3a51055eb993e2cea64deeb07ea661ac9621c805673c5592e/json HTTP/1.1" 200 None
+2023-12-03 16:44:15,774 http://localhost:None "POST /v1.42/containers/e20f7392d45001f3a51055eb993e2cea64deeb07ea661ac9621c805673c5592e/start HTTP/1.1" 204 0
+2023-12-03 16:44:15,775 Started container 3
+2023-12-03 16:44:15,775 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 16:44:15,777 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
+2023-12-03 16:44:15,834 http://localhost:None "POST /v1.42/containers/create?name=endServer4 HTTP/1.1" 201 88
+2023-12-03 16:44:15,836 http://localhost:None "GET /v1.42/containers/13c86e9e5b2ce1402f209f8073e8d7347c9d089ba8a2c24fe75c723ba58c88f0/json HTTP/1.1" 200 None
+2023-12-03 16:44:16,143 http://localhost:None "POST /v1.42/containers/13c86e9e5b2ce1402f209f8073e8d7347c9d089ba8a2c24fe75c723ba58c88f0/start HTTP/1.1" 204 0
+2023-12-03 16:44:16,143 Started container 4
+2023-12-03 16:44:16,144 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 16:44:16,146 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80
+2023-12-03 16:44:16,158 http://localhost:None "POST /v1.42/containers/create?name=endServer5 HTTP/1.1" 201 88
+2023-12-03 16:44:16,159 http://localhost:None "GET /v1.42/containers/49a6fcae60a0011172304beea3377f87c21efc17f8a94c23e92892abb74bcf89/json HTTP/1.1" 200 None
+2023-12-03 16:44:16,506 http://localhost:None "POST /v1.42/containers/49a6fcae60a0011172304beea3377f87c21efc17f8a94c23e92892abb74bcf89/start HTTP/1.1" 204 0
+2023-12-03 16:44:16,507 Started container 5
+2023-12-03 16:44:16,508 Starting new HTTP connection (1): 127.0.0.1:6000
+2023-12-03 16:44:16,509 http://127.0.0.1:6000 "POST /register HTTP/1.1" 200 80

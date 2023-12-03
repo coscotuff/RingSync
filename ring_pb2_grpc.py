@@ -29,6 +29,11 @@ class AlertStub(object):
                 request_serializer=ring__pb2.keyValue.SerializeToString,
                 response_deserializer=ring__pb2.returnValue.FromString,
                 )
+        self.Update = channel.unary_unary(
+                '/ring.Alert/Update',
+                request_serializer=ring__pb2.keyValue.SerializeToString,
+                response_deserializer=ring__pb2.returnValue.FromString,
+                )
 
 
 class AlertServicer(object):
@@ -52,6 +57,12 @@ class AlertServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def Update(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AlertServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -67,6 +78,11 @@ def add_AlertServicer_to_server(servicer, server):
             ),
             'Read': grpc.unary_unary_rpc_method_handler(
                     servicer.Read,
+                    request_deserializer=ring__pb2.keyValue.FromString,
+                    response_serializer=ring__pb2.returnValue.SerializeToString,
+            ),
+            'Update': grpc.unary_unary_rpc_method_handler(
+                    servicer.Update,
                     request_deserializer=ring__pb2.keyValue.FromString,
                     response_serializer=ring__pb2.returnValue.SerializeToString,
             ),
@@ -126,6 +142,23 @@ class Alert(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/ring.Alert/Read',
+            ring__pb2.keyValue.SerializeToString,
+            ring__pb2.returnValue.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Update(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/ring.Alert/Update',
             ring__pb2.keyValue.SerializeToString,
             ring__pb2.returnValue.FromString,
             options, channel_credentials,

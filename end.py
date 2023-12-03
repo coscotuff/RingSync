@@ -109,6 +109,41 @@ class Server(ring_pb2_grpc.AlertServicer):
             timestamp=vector[request.key],
         )
 
+    def Update(self, request, context):
+        lock.acquire()
+
+        if request.key not in vector:
+            vector[request.key] = 0
+        vector[request.key] += 1
+
+        status = "False"
+        data = []
+        # Add key-value pair to csv database. Check if there is a entry for the key, if so, update it, else append.
+        with open("database.csv", "r", newline="") as r:
+            read = csv.reader(r)
+            data = list(read)
+            r.close()
+
+        for row in data:
+            print(row)
+            if row[0] == request.key:
+                row[1] = request.value
+                status = "True"
+                break
+
+        with open("database.csv", "w", newline="") as w:
+            write = csv.writer(w)
+            write.writerows(data)
+            w.close()
+
+        lock.release()
+        return ring_pb2.returnValue(
+            updated=status,
+            key=request.key,
+            value=request.value,
+            timestamp=vector[request.key],
+        )
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
