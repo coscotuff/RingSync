@@ -5,7 +5,7 @@ This repository contains the codebase for a consistently hashed, ring topology b
 
 ## Underlying System Architecture
 
-![unnamed](https://github.com/coscotuff/RingSync/assets/74728041/18293584-7f91-4c41-be8f-dc0766e4ed87)
+![unnamed (1)](https://github.com/coscotuff/RingSync/assets/74728041/4c0e5f86-4d54-40af-a806-b6e41ccd7d68)
 
 ## Requirements
 
